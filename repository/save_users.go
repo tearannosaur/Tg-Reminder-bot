@@ -4,6 +4,6 @@ import (
 	"reminder/models"
 )
 
-func (r *ReposytoryModule) SaveUsers(user models.Users) {
+func (r *RepositoryModule) SaveUsers(user models.Users) {
 
 }

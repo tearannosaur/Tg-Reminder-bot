@@ -5,10 +5,10 @@ import (
 )
 
 type HandlerModule struct {
-	repo *repository.ReposytoryModule
+	repo *repository.RepositoryModule
 }
 
-func HandlerModuleInit(r *repository.ReposytoryModule) *HandlerModule {
+func HandlerModuleInit(r *repository.RepositoryModule) *HandlerModule {
 	return &HandlerModule{
 		repo: r,
 	}
