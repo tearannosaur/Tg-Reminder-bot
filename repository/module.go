@@ -8,8 +8,8 @@ type ReposytoryModule struct {
 	db *sqlx.DB
 }
 
-func ModuleInit(d *sqlx.DB) ReposytoryModule {
-	return ReposytoryModule{
+func ModuleInit(d *sqlx.DB) *ReposytoryModule {
+	return &ReposytoryModule{
 		db: d,
 	}
 }

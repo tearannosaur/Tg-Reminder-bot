@@ -9,7 +9,7 @@ import (
 	"github.com/go-telegram/bot/models"
 )
 
-func Start(ctx context.Context, b *bot.Bot, update *models.Update) {
+func (h *HandlerModule) Start(ctx context.Context, b *bot.Bot, update *models.Update) {
 	b.SendMessage(ctx, &bot.SendMessageParams{
 		ChatID: update.Message.Chat.ID,
 		Text:   fmt.Sprintf("Привет, %s я бот Напоминалкин", update.Message.Chat.Username),
@@ -17,7 +17,7 @@ func Start(ctx context.Context, b *bot.Bot, update *models.Update) {
 	log.Println(update.Message.Chat.ID, update.Message.Chat.FirstName, update.Message.Chat.LastName)
 }
 
-func Empty(ctx context.Context, b *bot.Bot, update *models.Update) {
+func (h *HandlerModule) Empty(ctx context.Context, b *bot.Bot, update *models.Update) {
 	b.SendMessage(ctx, &bot.SendMessageParams{
 		ChatID: update.Message.Chat.ID,
 		Text:   "Вот список моих команд:\n",

@@ -8,9 +8,8 @@ import (
 	"os/signal"
 	"reminder/handlers"
 	"reminder/repository"
+	t "reminder/tg_utils"
 	"reminder/utils"
-
-	"github.com/go-telegram/bot"
 )
 
 func main() {
@@ -19,7 +18,8 @@ func main() {
 		log.Println("Не удалось подключиться к базе данных:", err)
 		return
 	}
-	repository.ModuleInit(db)
+	repo := repository.ModuleInit(db)
+	h := handlers.HandlerModuleInit(repo)
 	fmt.Println("Успешное подключение к базе данных")
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer cancel()
@@ -28,8 +28,6 @@ func main() {
 		log.Println("Не удалось подключиться к телеграмм боту", err)
 		return
 	}
+	t.Commands(ctx, b, h)
 
-	b.RegisterHandler(bot.HandlerTypeMessageText, "/start", bot.MatchTypeExact, handlers.Start)
-	b.RegisterHandler(bot.HandlerTypeMessageText, "", bot.MatchTypePrefix, handlers.Empty)
-	b.Start(ctx)
 }
