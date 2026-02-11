@@ -7,6 +7,6 @@ import (
 	"github.com/go-telegram/bot/models"
 )
 
-func CreateReminder(ctx context.Context, b *bot.Bot, update *models.Update) {
+func (h *HandlerModule) CreateReminder(ctx context.Context, b *bot.Bot, update *models.Update) {
 
 }
