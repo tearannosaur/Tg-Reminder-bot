@@ -6,7 +6,11 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"reminder/handlers"
+	"reminder/repository"
 	"reminder/utils"
+
+	"github.com/go-telegram/bot"
 )
 
 func main() {
@@ -23,5 +27,7 @@ func main() {
 		log.Println("Не удалось подключиться к телеграмм боту", err)
 		return
 	}
-
+	repository.ModuleInit(db)
+	b.RegisterHandler(bot.HandlerTypeMessageText, "/start", bot.MatchTypeExact, handlers.Start)
+	b.Start(ctx)
 }
