@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	m "reminder/models"
 
 	"github.com/go-telegram/bot"
 	"github.com/go-telegram/bot/models"
@@ -14,7 +15,18 @@ func (h *HandlerModule) Start(ctx context.Context, b *bot.Bot, update *models.Up
 		ChatID: update.Message.Chat.ID,
 		Text:   fmt.Sprintf("Привет, %s я бот Напоминалкин", update.Message.Chat.Username),
 	})
-	log.Println(update.Message.Chat.ID, update.Message.Chat.FirstName, update.Message.Chat.LastName)
+	user := m.Users{
+		Id:        int(update.Message.From.ID),
+		NickName:  update.Message.From.Username,
+		FirstName: update.Message.From.FirstName,
+		LastName:  update.Message.From.LastName,
+	}
+	err := h.repo.SaveUsers(user)
+	if err != nil {
+		log.Println("Не удалось сохранить пользователя в бд:", err)
+		return
+	}
+	log.Println("Пользователь сохранен в бд:", user)
 }
 
 func (h *HandlerModule) Empty(ctx context.Context, b *bot.Bot, update *models.Update) {

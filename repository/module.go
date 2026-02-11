@@ -4,12 +4,12 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-type ReposytoryModule struct {
+type RepositoryModule struct {
 	db *sqlx.DB
 }
 
-func ModuleInit(d *sqlx.DB) *ReposytoryModule {
-	return &ReposytoryModule{
+func ModuleInit(d *sqlx.DB) *RepositoryModule {
+	return &RepositoryModule{
 		db: d,
 	}
 }
