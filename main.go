@@ -19,6 +19,7 @@ func main() {
 		log.Println("Не удалось подключиться к базе данных:", err)
 		return
 	}
+	repository.ModuleInit(db)
 	fmt.Println("Успешное подключение к базе данных")
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer cancel()
@@ -27,7 +28,8 @@ func main() {
 		log.Println("Не удалось подключиться к телеграмм боту", err)
 		return
 	}
-	repository.ModuleInit(db)
+
 	b.RegisterHandler(bot.HandlerTypeMessageText, "/start", bot.MatchTypeExact, handlers.Start)
+	b.RegisterHandler(bot.HandlerTypeMessageText, "", bot.MatchTypePrefix, handlers.Empty)
 	b.Start(ctx)
 }
