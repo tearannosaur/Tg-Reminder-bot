@@ -26,12 +26,12 @@ func (h *HandlerModule) Start(ctx context.Context, b *bot.Bot, update *models.Up
 		log.Println("Не удалось сохранить пользователя в бд:", err)
 		return
 	}
-	log.Println("Пользователь сохранен в бд:", user)
+	log.Println("Пользователь сохранен или существует в бд:", user)
 }
 
 func (h *HandlerModule) Empty(ctx context.Context, b *bot.Bot, update *models.Update) {
 	b.SendMessage(ctx, &bot.SendMessageParams{
 		ChatID: update.Message.Chat.ID,
-		Text:   "Вот список моих команд:\n",
+		Text:   "Cписок моих команд:\n /remind - создать напоминание, формат ввода: 02-01-2006 15:04:05 Сходить за хлебом",
 	})
 }
