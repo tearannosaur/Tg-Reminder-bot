@@ -13,7 +13,7 @@ import (
 func (h *HandlerModule) Start(ctx context.Context, b *bot.Bot, update *models.Update) {
 	b.SendMessage(ctx, &bot.SendMessageParams{
 		ChatID: update.Message.Chat.ID,
-		Text:   fmt.Sprintf("Привет, %s я бот Напоминалкин", update.Message.Chat.Username),
+		Text:   fmt.Sprintf("Привет, %s я бот Напоминалкин\n Cписок моих команд:\n /remind - создать напоминание. Формат ввода: 02-01-2006 15:04:05 Сходить за хлебом", update.Message.Chat.Username),
 	})
 	user := m.Users{
 		Id:        int(update.Message.From.ID),
@@ -32,6 +32,6 @@ func (h *HandlerModule) Start(ctx context.Context, b *bot.Bot, update *models.Up
 func (h *HandlerModule) Empty(ctx context.Context, b *bot.Bot, update *models.Update) {
 	b.SendMessage(ctx, &bot.SendMessageParams{
 		ChatID: update.Message.Chat.ID,
-		Text:   "Cписок моих команд:\n /remind - создать напоминание, формат ввода: 02-01-2006 15:04:05 Сходить за хлебом",
+		Text:   "Cписок моих команд:\n /remind - создать напоминание. Формат ввода: 02-01-2006 15:04:05 Сходить за хлебом",
 	})
 }
