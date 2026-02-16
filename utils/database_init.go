@@ -17,7 +17,7 @@ func DbConnection() (*sqlx.DB, error) {
 	userName := os.Getenv("DBUserName")
 	dbPasswrod := os.Getenv("DBPassword")
 	dbName := os.Getenv("DBName")
-	connectionQuery := fmt.Sprintf("host=localhost port=5437 user=%s password=%s dbname=%s sslmode=disable", userName, dbPasswrod, dbName)
+	connectionQuery := fmt.Sprintf("host=db port=5432 user=%s password=%s dbname=%s sslmode=disable", userName, dbPasswrod, dbName)
 	db, err := sqlx.Connect("pgx", connectionQuery)
 	if err != nil {
 		return nil, err

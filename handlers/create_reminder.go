@@ -3,6 +3,7 @@ package handlers
 import (
 	"context"
 	"fmt"
+	"log"
 	"strings"
 	"time"
 
@@ -28,7 +29,12 @@ func (h *HandlerModule) CreateReminder(ctx context.Context, b *bot.Bot, update *
 	}
 
 	dirtyDate := textSplit[1] + " " + textSplit[2]
-	date, err := time.ParseInLocation(layout, dirtyDate, time.Local)
+	loc, err := time.LoadLocation("Europe/Moscow")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	date, err := time.ParseInLocation(layout, dirtyDate, loc)
 	if err != nil {
 		b.SendMessage(ctx, &bot.SendMessageParams{
 			ChatID: update.Message.Chat.ID,
@@ -53,6 +59,7 @@ func (h *HandlerModule) CreateReminder(ctx context.Context, b *bot.Bot, update *
 
 	go func() {
 		for {
+			log.Println(date)
 			time.Sleep(time.Until(date))
 			b.SendMessage(ctx, &bot.SendMessageParams{
 				ChatID: update.Message.Chat.ID,
