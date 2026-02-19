@@ -50,12 +50,19 @@ func (h *HandlerModule) CreateReminder(ctx context.Context, b *bot.Bot, update *
 		return
 	}
 
+	reminderText := strings.Join(textSplit[3:], " ")
+	err = h.repo.SaveReminder(int(update.Message.From.ID), reminderText)
+	if err != nil {
+		b.SendMessage(ctx, &bot.SendMessageParams{
+			ChatID: update.Message.Chat.ID,
+			Text:   "Внутренняя ошибка, не удалось сохранить напоминание.",
+		})
+		return
+	}
 	b.SendMessage(ctx, &bot.SendMessageParams{
 		ChatID: update.Message.Chat.ID,
 		Text:   "Напоминание установленно!",
 	})
-
-	reminderText := strings.Join(textSplit[3:], " ")
 
 	go func() {
 		for {

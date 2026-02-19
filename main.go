@@ -10,7 +10,6 @@ import (
 	"reminder/repository"
 	t "reminder/tg_utils"
 	"reminder/utils"
-	"time"
 )
 
 func main() {
@@ -19,7 +18,6 @@ func main() {
 		log.Println("Не удалось подключиться к базе данных:", err)
 		return
 	}
-	log.Println("TimeZone:", time.Local, time.Now())
 	repo := repository.ModuleInit(db)
 	h := handlers.HandlerModuleInit(repo)
 	fmt.Println("Успешное подключение к базе данных")

@@ -6,7 +6,7 @@ services:
     env_file:
       - .env
     ports:
-      - "5437:5432"
+      - "5432"
     environment:
       POSTGRES_USER: ${DBUserName}
       POSTGRES_PASSWORD: ${DBPassword}
@@ -17,6 +17,15 @@ services:
   backend:
     build: .
     container_name: backend_reminder
+    depends_on:
+      - db
+  
+  migrate:
+    image: migrate/migrate
+    volumes:
+      - ./migrations:/migrations
+    entrypoint: ["migrate"]
+
     
 volumes:
   db-data:
